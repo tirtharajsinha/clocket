@@ -7,5 +7,5 @@ Other desklets are great but i wanted a desklet having a clock and <br>
 weather viewer combined.<br>
 
 
-## For more info visit clocket official <a href="tirtharajsinha.github.io/clocket/">site <br>
+## For more info visit clocket official <a href="https://tirtharajsinha.github.io/clocket/">site <br>
 <img src="https://github.com/tirtharajsinha/clocket/blob/main/static/applyss.png">
