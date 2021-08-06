@@ -30,7 +30,7 @@ weather viewer combined.<br>
 <li>Generate a current weather data api key from <a href="https://openweathermap.org/price">openweathermap.org</a> or existing api .just make sure that api is from openweathermap
 </li>
 <li>now put lat-lon or place name. if you dont know your location get it from <a href="https://tirtharajsinha.github.io/clocket/#latlon">here</a></li>
- <li>To update detailed weather block click on refresh button and <u><b style="color:green;">in compacted version click current weather icon to refresh weather data.</b></u> </li>
+ <li>To update detailed weather block click on refresh button and <u><span style="color:green;"> in compacted version click current weather icon to refresh weather data.</span></u> </li>
 </ol>
 
 
