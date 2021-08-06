@@ -35,4 +35,4 @@ weather viewer combined.<br>
 
 ## For more info visit clocket official <a href="https://tirtharajsinha.github.io/clocket/">site </a> <br>
 
-<img src="stock/screenshot.png" alt ="">
+<img src="static/screenshot.png" alt ="">
