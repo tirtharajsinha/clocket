@@ -52,6 +52,7 @@ class CinnamonClockDesklet extends Desklet.Desklet {
         this.settings.bind("background-color", "bgcolor", this._onSettingsChanged);
         this.settings.bind("weather", "weatherperm", this._onWeatherPermChange);
         this.settings.bind("forecast", "forecastperm", this._onForecastPermChange);
+        this.settings.bind("compact", "compactperm", this._onCompactPermChange);
         this.settings.bind("api-key", "api", this._dummy_func);
         this.settings.bind("lat-long", "latlon", this._dummy_func);
         this.settings.bind("place", "city", this._dummy_func);
@@ -70,6 +71,10 @@ class CinnamonClockDesklet extends Desklet.Desklet {
         if (this.forecastperm) {
             this._create_forecast_label();
         }
+        if (this.compactperm) {
+            this._create_compact_label()
+        }
+        
 
 
     }
@@ -89,8 +94,12 @@ class CinnamonClockDesklet extends Desklet.Desklet {
             this._weatherContainer.style = "background-color:" + this.wbgcolor;
         }
         if (this.forecastperm) {
-            
+
             this._forecustContainer.style = "background-color:" + this.wbgcolor;
+        }
+        if (this.compactperm) {
+
+            this._compactContainer.style = "background-color:" + this.wbgcolor;
         }
 
         this._updateClock();
@@ -119,7 +128,7 @@ class CinnamonClockDesklet extends Desklet.Desklet {
 
         }
         if (this.forecastperm) {
-            
+
             this._fhead.style = "color: " + this.wcolor;
             this._ftemp.style = "color: " + this.wcolor;
             this._shead.style = "color: " + this.wcolor;
@@ -128,6 +137,18 @@ class CinnamonClockDesklet extends Desklet.Desklet {
             this._ttemp.style = "color: " + this.wcolor;
 
 
+        }
+        if (this.compactperm) {
+
+            this.comloc.style="color: " + this.wcolor;
+            this.comtemp.style="color: " + this.wcolor;
+            this.comdes.style="color: " + this.wcolor;
+            this._fcomhead.style = "color: " + this.wcolor;
+            this._fcomtemp.style = "color: " + this.wcolor;
+            this._scomhead.style = "color: " + this.wcolor;
+            this._scomtemp.style = "color: " + this.wcolor;
+            this._tcomhead.style = "color: " + this.wcolor;
+            this._tcomtemp.style = "color: " + this.wcolor;
         }
     }
     _getIconImage(iconpath, dim) {
@@ -213,13 +234,24 @@ class CinnamonClockDesklet extends Desklet.Desklet {
     _onForecastPermChange() {
         if (this.forecastperm) {
             this._create_forecast_label();
-            
+
         }
         else {
             this._forecustContainer.destroy();
 
         }
 
+    }
+
+    _onCompactPermChange(){
+        if (this.compactperm) {
+            this._create_compact_label();
+
+        }
+        else {
+            this._compactContainer.destroy();
+
+        }
     }
     _dummy_func() {
 
@@ -499,7 +531,221 @@ class CinnamonClockDesklet extends Desklet.Desklet {
     }
 
 
+    _create_compact_label() {
+        this._compactContainer = new St.BoxLayout({ vertical: false, style_class: "compact_container_style" });
+        this._compactcur = new St.BoxLayout({ vertical: true, style_class: "compact_cur_container_style" });
+        this._compactfor = new St.BoxLayout({ vertical: false, style_class: "compact_for_container_style" });
 
+        this.comloc = new St.Label({ style_class: "comloc_label_style" });
+        this.comloc.set_text("Kolkata, IN");
+        let comicon = this._getIconImage("/icons/icon.png", 45);
+        this.comiconbtn = new St.Button();
+        this.comiconbtn.set_child(comicon);
+        this.comiconbtn.connect('clicked', Lang.bind(this, this._get_compact_update));
+        this.comtemp = new St.Label({ style_class: "comtemp_label_style" });
+        this.comtemp.set_text("30℃");
+        this.comdes = new St.Label({ style_class: "comloc_label_style" });
+        this.comdes.set_text("light rain");
+
+        this.fcomview = new St.BoxLayout({ vertical: true, style_class: "compact_day_container_style" });
+        this._fcomhead = new St.Label({ style_class: "fday_label_style" });
+        this._fcomhead.set_text("MON");
+        let fcomicon = this._getIconImage("/icons/icon.png", 35);
+        this.firstcomiconbtn = new St.Button();
+        this.firstcomiconbtn.set_child(fcomicon);
+        this.firstcomiconbtn.style = "margin-top:10px;margin-bottom:10px;";
+        this._fcomtemp = new St.Label({ style_class: "fday_label_style" });
+        this._fcomtemp.set_text("30℃");
+
+        this.fcomview.add(this._fcomhead);
+        this.fcomview.add(this.firstcomiconbtn);
+        this.fcomview.add(this._fcomtemp);
+        this._compactfor.add(this.fcomview);
+
+        this.scomview = new St.BoxLayout({ vertical: true, style_class: "compact_day_container_style" });
+        this._scomhead = new St.Label({ style_class: "fday_label_style" });
+        this._scomhead.set_text("MON");
+        let scomicon = this._getIconImage("/icons/icon.png", 35);
+        this.secondcomiconbtn = new St.Button();
+        this.secondcomiconbtn.set_child(scomicon);
+        this.secondcomiconbtn.style = "margin-top:10px;margin-bottom:10px;";
+        this._scomtemp = new St.Label({ style_class: "fday_label_style" });
+        this._scomtemp.set_text("30℃");
+
+        this.scomview.add(this._scomhead);
+        this.scomview.add(this.secondcomiconbtn);
+        this.scomview.add(this._scomtemp);
+        this._compactfor.add(this.scomview);
+
+
+        this.tcomview = new St.BoxLayout({ vertical: true, style_class: "compact_day_container_style" });
+        this._tcomhead = new St.Label({ style_class: "fday_label_style" });
+        this._tcomhead.set_text("MON");
+        let tcomicon = this._getIconImage("/icons/icon.png", 35);
+        this.thirdcomiconbtn = new St.Button();
+        this.thirdcomiconbtn.set_child(tcomicon);
+        this.thirdcomiconbtn.style = "margin-top:10px;margin-bottom:10px;";
+        this._tcomtemp = new St.Label({ style_class: "fday_label_style" });
+        this._tcomtemp.set_text("30℃");
+
+        this.tcomview.add(this._tcomhead);
+        this.tcomview.add(this.thirdcomiconbtn);
+        this.tcomview.add(this._tcomtemp);
+        this._compactfor.add(this.tcomview);
+
+
+        this._compactcur.add(this.comloc);
+        this._compactcur.add(this.comiconbtn);
+        this._compactcur.add(this.comtemp);
+        this._compactcur.add(this.comdes);
+        this._compactContainer.add(this._compactcur);
+        this._compactContainer.add(this._compactfor);
+        this._Container.add(this._compactContainer);
+
+        this._get_compact_update();
+    }
+
+    _return_forecast_data() {
+        var baseurl = "http://api.openweathermap.org/data/2.5/forecast?";
+        // var weatherapi for api key
+        var weatherapi = this.api;
+        var id = ""
+        if (this.latlon == "") {
+            id = "q=" + this.city;
+
+        }
+        else {
+            var cor = (String(this.latlon)).split("-");
+            var id = "lat=" + cor[0] + "&lon=" + cor[1];
+        }
+
+        var url = baseurl + id + "&appid=" + String(weatherapi) + "&units=metric";
+        var jsondata = this.getJSON(url);
+        if (jsondata == "401") {
+            return 404;
+        }
+        else if (jsondata == "unreachable") {
+            return "unreachable";
+        }
+        else if (jsondata == "404") {
+            return 404;
+        }
+        else {
+            var utctime = jsondata.timezone / 3600;
+            utctime = utctime.toFixed(2);
+            var time = String(utctime);
+            time = time.replace(".", ":");
+            if (utctime >= 0) {
+                time = "+" + time;
+            }
+
+            let newdate = new Date();
+            var d = newdate.getDay() + 1;
+            let newdata = jsondata;
+            var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+            let forcustdata = newdata.list;
+
+            let day = "";
+            let foredata = [];
+            for (var i = 7; i < 24; i += 8) {
+                day = forcustdata[i];
+                let temp = day["main"]["temp"];
+                let icon = day["weather"][0]["icon"];
+                d = d % 7;
+                let wd = weekday[d];
+                d++;
+                foredata.push([wd, icon, temp]);
+
+            }
+
+            return foredata;
+        }
+    }
+
+    _return_current_data() {
+        var baseurl = "http://api.openweathermap.org/data/2.5/weather?";
+        // var weatherapi for api key
+        var weatherapi = this.api;
+        var id = ""
+        if (this.latlon == "") {
+            id = "q=" + this.city;
+
+        }
+        else {
+            var cor = (String(this.latlon)).split("-");
+            var id = "lat=" + cor[0] + "&lon=" + cor[1];
+        }
+
+        var url = baseurl + id + "&appid=" + String(weatherapi) + "&units=metric";
+        var jsondata = this.getJSON(url);
+        if (jsondata == "401") {
+            return 404;
+        }
+        else if (jsondata == "unreachable") {
+            return "unreachable";
+        }
+        else if (jsondata == "404") {
+            return 404;
+        }
+        else {
+            var loc = jsondata.name + ", " + jsondata.sys.country;
+            var ovarall = jsondata.weather[0].description;
+            var temp = jsondata.main.temp + " ℃";
+            var icon = jsondata.weather[0].icon;
+            return [loc,  temp,ovarall, icon];
+        }
+
+
+
+    }
+
+    _get_compact_update() {
+        if (true) {
+
+            if ((this.api !== "") && ((this.latlon !== "") || (this.city !== ""))) {
+
+                var foredata = this._return_forecast_data();
+                if (foredata == 401 && foredata == 404 && foredata == "unreachable") {
+                    this.comloc = foredata;
+                }
+                else {
+
+                    this._fcomhead.set_text(foredata[0][0]);
+                    let wiconimage = this._getIconImage("/icons/owm_icons/" + foredata[0][1] + "@2x.png", 35);
+                    this.firstcomiconbtn.set_child(wiconimage);
+                    this._fcomtemp.set_text(foredata[0][2] + "℃");
+
+                    this._scomhead.set_text(foredata[1][0]);
+                    wiconimage = this._getIconImage("/icons/owm_icons/" + foredata[1][1] + "@2x.png", 35);
+                    this.secondcomiconbtn.set_child(wiconimage);
+                    this._scomtemp.set_text(foredata[1][2] + "℃");
+
+                    this._tcomhead.set_text(foredata[2][0]);
+                    wiconimage = this._getIconImage("/icons/owm_icons/" + foredata[2][1] + "@2x.png", 35);
+                    this.thirdcomiconbtn.set_child(wiconimage);
+                    this._tcomtemp.set_text(foredata[2][2] + "℃");
+                }
+
+                var curdata = this._return_current_data();
+                if (curdata == 401 && curdata == 404 && curdata == "unreachable") {
+                    this.comloc = curdata;
+                }
+                else {
+                    this.comloc.set_text(curdata[0])
+                    let comicon = this._getIconImage("/icons/owm_icons/" + curdata[3] + "@2x.png", 45);
+                    this.comiconbtn.set_child(comicon);
+                    this.comtemp.set_text(curdata[1]);
+                    this.comdes.set_text(curdata[2])
+                }
+
+            }
+
+
+        }
+
+
+
+    }
 
     _updateClock() {
         let a = new Date();

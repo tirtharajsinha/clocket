@@ -22,7 +22,7 @@
     },
      "weather":{
         "type":"switch",
-        "default":true,
+        "default":false,
         "description":"Want weather display ?",
         "tooltip": "want current weather display ?"
     },
@@ -43,14 +43,14 @@
     },
     "weather-color" : {
 	    "type": "colorchooser",
-        "dependency" : "weather",
-	    "default" : "rgb(0,0,0)",
+        
+	    "default" : "rgb(255,255,255)",
 	    "description" : "weather block text color",
 	    "tooltip" : "Click the button to select a new text color"
     },
     "weather-bg-color" : {
 	    "type": "colorchooser",
-        "dependency" : "weather",
+        
 	    "default" : "rgba(0, 0, 0, 0.363)",
 	    "description" : "weather-block bg-color",
 	    "tooltip" : "Click the button to select a new bg color"
@@ -58,7 +58,6 @@
     "api-key":{
         "type": "entry",
         "default": "",
-        "dependency" : "weather",
         "description": "put api key",
         "indent": true,
         "tooltip" : "put your api key generated from open-weather-map here"
@@ -88,8 +87,15 @@
     },
     "forecast":{
         "type":"switch",
-        "default":true,
+        "default":false,
         "description":"Want weather forecust display ?",
         "tooltip": "want weather forecast display ?"
+    },
+    "compact":{
+        "type":"switch",
+        "default":true,
+        "description":"Want compact weather display ?",
+        "tooltip": "Want compact weather display ?"
     }
+
 }
