@@ -22,7 +22,7 @@
     },
      "weather":{
         "type":"switch",
-        "default":false,
+        "default":true,
         "description":"Want weather display ?",
         "tooltip": "want current weather display ?"
     },
@@ -87,13 +87,13 @@
     },
     "forecast":{
         "type":"switch",
-        "default":false,
+        "default":true,
         "description":"Want weather forecust display ?",
         "tooltip": "want weather forecast display ?"
     },
     "compact":{
         "type":"switch",
-        "default":true,
+        "default":false,
         "description":"Want compact weather display ?",
         "tooltip": "Want compact weather display ?"
     }
