@@ -54,20 +54,52 @@
             background-color: black;
             color: rgb(68, 226, 5);
         }
-        
-        .spn{
-            background-color:rgb(73, 61, 141);
-            color:coral;
+
+        .spn {
+            background-color: rgb(73, 61, 141);
+            color: coral;
             padding: 7px;
             border-radius: 5px;
-            margin-top:20px;
+            margin-top: 20px;
         }
+
+        #uselist{
+            width:60%;
+            list-style: none;
+            display: block;
+            margin:auto;
+            border: 1px solid rgb(170, 170, 170);
+            border-radius: 7px;
+            overflow: hidden;
+            padding: 0px;
+            margin-bottom:50px;
+        }
+        #uselist li{
+            width:100%;
+            color:black;
+            padding:20px;
+            border-bottom: 1px solid rgb(170, 170, 170);
+            font-size: 16px;
+            font-weight: 300px;
+        }
+        #uselist li:last-child{
+            border-bottom: none;
+        }
+        #uselist li:hover{
+            background-color: rgb(19, 102, 228);
+            color:white;
+        }
+        #uselist li:hover a{
+            color:black;
+        }
+
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(8, 238, 142); height:40px; position: fixed; width: 100%; z-index: 100;">
+    <nav class="navbar navbar-expand-lg navbar-light"
+        style="background-color: rgb(8, 238, 142); height:40px; position: fixed; width: 100%; z-index: 100;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Clocket desklet</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -122,18 +154,36 @@
                 <h5 class="mb-1">clock combind with weather display.</h5>
 
             </div>
-            <p class="mb-1">combined two desklet into one and you can hide the weather block anytime. small display for junc free & focused workflow.</p>
+            <p class="mb-1">combined two desklet into one and you can hide the weather block anytime. small display for
+                junc free & focused workflow.</p>
             <small class="text-muted">so feel light with clocket</small>
         </a>
-        <a href="#f1" class="list-group-item list-group-item-action" id="f4">
+        <a href="#f4" class="list-group-item list-group-item-action" id="f4">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">detailed and compacted display.</h5>
 
             </div>
-            <p class="mb-1">Two weather display version available  i. detailed ii. compacted display to make your desktop open sky.</p>
+            <p class="mb-1">Two weather display version available i. detailed ii. compacted display to make your desktop
+                open sky.</p>
             <small class="text-muted">so feel light with clocket</small>
         </a>
     </div>
+
+    <h1 style="color:rgb(236, 16, 53); text-align: center; margin-bottom: 50px;" id="use">How to use properly</h1>
+    <ol id="uselist">
+        <li>launch the desklet</li>
+        <li>right click on desklet select configure..</li>
+        <li>change colors of your taste.</li>
+        <li>Generate a current weather data api key from <a
+                href="https://openweathermap.org/price">openweathermap.org</a> or existing api .just make sure that api
+            is from openweathermap
+        </li>
+        <li>now put lat-lon or place name. if you dont know your location get it from <a
+                href="https://tirtharajsinha.github.io/clocket/#latlon">here</a></li>
+        <li>To update detailed weather block click on refresh button and in compacted version click current weather icon
+            to refresh weather data.</li>
+    </ol>
+
 
     <h1 style="color:rgb(238, 103, 25); text-align: center; margin-bottom: 50px;" id="cust">Customization</h1>
     <div style="display: flex; justify-content: space-around;">
@@ -156,15 +206,17 @@
             longitude) finder.</h3>
         <h5 style="text-align: center; color: rgb(167, 167, 167);">Downloaded clocket wanna find out you current
             latitude and longitude ? click to find out. </h5>
-        <button class="download" id="click-here"style="background-color: rgb(141, 11, 61);" onclick="location()">Click here</button>
+        <button class="download" id="click-here" style="background-color: rgb(141, 11, 61);" onclick="location()">Click
+            here</button>
         <h6 style="text-align: center; color: rgb(56, 170, 46);">:-: After clicking button make sure you allow to read
             your location. <br> Note that we don't collect your location.so feel free to allow it.</h6>
         <div class="latlon" id="latlon"
             style="text-align:center;width:30%; background-color: rgba(246, 248, 128, 0.671); color:black; margin: auto; border-radius: 7px; height:0px">
         </div>
-        
+
     </div>
-    <div style=" text-align:center;margin-top: 220px; width: 100%; height: 100px; background-color: rgb(0, 0, 0); padding-top: 30px; color:white;">
+    <div
+        style=" text-align:center;margin-top: 220px; width: 100%; height: 100px; background-color: rgb(0, 0, 0); padding-top: 30px; color:white;">
         Made by Tirtharaj Sinha. &copy; 2021
     </div>
 
@@ -181,20 +233,20 @@
     <script>
         function geoFindMe() {
 
-            
+
             const mapLink = document.querySelector('#latlon');
 
-            
+
             mapLink.textContent = '';
 
             function success(position) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-                mapLink.style.transition="all .3s linear";
-                mapLink.style.height="200px";
-                mapLink.style.color="transparent";
+                mapLink.style.transition = "all .3s linear";
+                mapLink.style.height = "200px";
+                mapLink.style.color = "transparent";
                 mapLink.innerHTML = `<br>Latitude: ${latitude} °,<br> Longitude: ${longitude} °<br> <span style="color:green;">copy and paste the text below</span> <br><br><spna class="spn">${latitude}-${longitude}</span>`;
-                mapLink.style.color="black";
+                mapLink.style.color = "black";
             }
 
             function error() {
