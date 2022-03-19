@@ -63,7 +63,7 @@
         "description" : "Data service",
         "options" : {
             "city name" : "city",
-            "lat-lon": "lat-lon"
+            "lat-lon": "lat:lon"
         },
         "tooltip" : "select your location type"
     },
@@ -105,7 +105,8 @@
         "dependency":"compact",
         "description" : "unit",
         "options" : {
-            "metric" : "metric"
+            "metric" : "metric",
+            "imperial" : "imperial"
         },
         "tooltip" : "select your unit preferance"
     },

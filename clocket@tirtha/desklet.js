@@ -59,6 +59,7 @@ class CinnamonClockDesklet extends Desklet.Desklet {
         this.settings.bind("loc", "loc", this._dummy_func);
         this.settings.bind("weather-color", "wcolor", this._onchange_weather_style);
         this.settings.bind("weather-bg-color", "wbgcolor", this._onSettingsChanged);
+        
 
         // this.settings.bind("auto-update", "auto_update", this._on_feed_settings_change);
         // this.settings.bind("update-duration", "duration", this._on_update_duration_change);
@@ -175,7 +176,7 @@ class CinnamonClockDesklet extends Desklet.Desklet {
             return "q=" + this.loc;
         }
         else if (this.loctype == "lat-lon") {
-            var cor = (String(this.loc)).split("-");
+            var cor = (String(this.loc)).split(":");
             return "lat=" + cor[0] + "&lon=" + cor[1];
         }
         else {
@@ -224,7 +225,13 @@ class CinnamonClockDesklet extends Desklet.Desklet {
         else {
             var loc = curdata.name + ", " + curdata.sys.country;
             var ovarall = curdata.weather[0].description;
-            var temp = curdata.main.temp + " ℃";
+            
+            if(this.unit=="imperial"){
+                var temp = curdata.main.temp + " °F";
+            }
+            else{
+                var temp = curdata.main.temp + " ℃";
+            }
             var icon = curdata.weather[0].icon;
             curdata = [loc, temp, ovarall, icon];
         }
@@ -235,7 +242,7 @@ class CinnamonClockDesklet extends Desklet.Desklet {
 
 
 
-        url = baseurl + "q=katwa" + "&appid=" + String(weatherapi) + "&units="+this.unit;
+        url = baseurl + this.id() + "&appid=" + String(weatherapi) + "&units="+this.unit;
         var jsondata = this.getJSON(url);
         let foredata = [];
         if (jsondata == "401") {
@@ -283,17 +290,30 @@ class CinnamonClockDesklet extends Desklet.Desklet {
             this._fcomhead.set_text(foredata[0][0]);
             let wiconimage = this._getIconImage("/icons/" + this._get_icon_pack() + "/" + foredata[0][1] + "@2x.png", 35);
             this.firstcomiconbtn.set_child(wiconimage);
-            this._fcomtemp.set_text(foredata[0][2] + "℃");
+            
+            
 
             this._scomhead.set_text(foredata[1][0]);
             wiconimage = this._getIconImage("/icons/" + this._get_icon_pack() + "/" + foredata[1][1] + "@2x.png", 35);
             this.secondcomiconbtn.set_child(wiconimage);
-            this._scomtemp.set_text(foredata[1][2] + "℃");
+            
 
             this._tcomhead.set_text(foredata[2][0]);
             wiconimage = this._getIconImage("/icons/" + this._get_icon_pack() + "/" + foredata[2][1] + "@2x.png", 35);
             this.thirdcomiconbtn.set_child(wiconimage);
-            this._tcomtemp.set_text(foredata[2][2] + "℃");
+            
+
+            
+            if(this.unit=="imperial"){
+                this._fcomtemp.set_text(foredata[0][2] + "°F");
+                this._scomtemp.set_text(foredata[1][2] + "°F");
+                this._tcomtemp.set_text(foredata[2][2] + "°F");
+            }
+            else{
+                this._fcomtemp.set_text(foredata[0][2] + "℃");
+                this._scomtemp.set_text(foredata[1][2] + "℃");
+                this._tcomtemp.set_text(foredata[2][2] + "℃");
+            }
         }
 
 
