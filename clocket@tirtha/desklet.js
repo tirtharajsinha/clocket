@@ -50,6 +50,8 @@ class CinnamonClockDesklet extends Desklet.Desklet {
         this.settings.bind("font-size", "size", this._onSettingsChanged);
         this.settings.bind("text-color", "color", this._onSettingsChanged);
         this.settings.bind("background-color", "bgcolor", this._onSettingsChanged);
+        this.settings.bind("clock-format", "cformat", this._onSettingsChanged);
+        this.settings.bind("show-seconds", "isSecond", this._onSettingsChanged);
         this.settings.bind("compact", "compactperm", this._onCompactPermChange);
         this.settings.bind("webservice", "webservice", this._get_compact_update);
         this.settings.bind("unit", "unit", this._get_compact_update);
@@ -462,7 +464,17 @@ class CinnamonClockDesklet extends Desklet.Desklet {
         let a = new Date();
         var min = a.getMinutes();
         var sec = a.getSeconds();
-        this._time.set_text(this.clock.get_clock_for_format("%0l:%0M"));
+        var timestr="%0l:%0M";
+        if(this.cformat==12){
+            timestr="%0l:%0M";
+        }
+        else{
+            timestr="%0H:%0M"
+        }
+        if(this.isSecond){
+            timestr+=":%0S"
+        }
+        this._time.set_text(this.clock.get_clock_for_format(timestr));
         var date = String(a.getDate()).padStart(2, '0')
         this._date.set_text(date);
 

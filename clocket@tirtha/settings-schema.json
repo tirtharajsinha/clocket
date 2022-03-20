@@ -3,6 +3,22 @@
         "type": "header",
         "description": "Clock configuration"
     },
+    "clock-format":{
+        "type": "combobox",
+        "default" : 12,
+        "description" : "Clock format",
+        "options" : {
+            "12 HOURS" : 12,
+            "24 HOURS" : 24
+        },
+        "tooltip" : "select your unit preferance"
+    },
+    "show-seconds": {
+        "type": "switch",
+        "default": false,
+        "description": "Want second display ?",
+        "tooltip": "Want seconds display ?"
+    },
     "font-size": {
         "type": "spinbutton",
         "default": 40,

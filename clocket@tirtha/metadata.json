@@ -4,9 +4,9 @@
     "description": "A desklet that displays the time, date, currenty and forecast weather report",
     "max-instances": "100",
     "author": "tirtharajsinha",
-    "version": "3.1",
+    "version": "3.2",
     "prevent-decorations": true,
-    "comments" : "Please consider custom Weather Desklet into your language. See the website for more information",
+    "comments" : "Please consider custom Weather Desklet into your language. visit the website to know how to use it properly and for more information",
     "website": "https://tirtharajsinha.github.io/clocket/",
-    "last-edited": 1642700507
+    "last-edited": 1647768561
 }
