@@ -87,9 +87,9 @@
         "type": "entry",
         "default": "kolkata",
         "dependency":"compact",
-        "description": "put your location",
+        "description": "put your location (if lat:lon follow format)",
         "indent": true,
-        "tooltip": "put your lat-long generated from lat-long.html page"
+        "tooltip": "put your lat:long generated from index.html page"
     },
     
     "auto-update": {
@@ -133,6 +133,16 @@
         "type":"header",
         "description":"customize font and bg color",
         "dependency":"compact"
+    },
+    "weather-font": {
+        "type": "spinbutton",
+        "default": 12,
+        "dependency":"compact",
+        "min": 10,
+        "max": 200,
+        "units": "px",
+        "description": "weather Font size",
+        "step": 1
     },
     "weather-color" : {
 	    "type": "colorchooser",
